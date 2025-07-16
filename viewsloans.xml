@@ -1,0 +1,77 @@
+<odoo>
+  <!-- Ação e menu -->
+  <record id="action_gt_loan" model="ir.actions.act_window">
+    <field name="name">Empréstimos</field>
+    <field name="res_model">gt.loan</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <menuitem id="menu_gt_root" name="Empréstimos"/>
+  <menuitem id="menu_gt_loan" name="Operações" parent="menu_gt_root" action="action_gt_loan"/>
+
+  <!-- Tree view -->
+  <record id="view_gt_loan_tree" model="ir.ui.view">
+    <field name="model">gt.loan</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name"/>
+        <field name="partner_id"/>
+        <field name="valor_solicitado"/>
+        <field name="valor_liberado"/>
+        <field name="taxa_juros"/>
+        <field name="prazo_semanas"/>
+        <field name="data_inicio"/>
+        <field name="state"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Form view -->
+  <record id="view_gt_loan_form" model="ir.ui.view">
+    <field name="model">gt.loan</field>
+    <field name="arch" type="xml">
+      <form string="Empréstimo">
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="partner_id"/>
+            <field name="valor_solicitado"/>
+            <field name="valor_liberado"/>
+            <field name="taxa_juros"/>
+            <field name="prazo_semanas"/>
+            <field name="data_inicio"/>
+            <field name="state" widget="statusbar"/>
+          </group>
+          <notebook>
+            <page string="Parcelas">
+              <field name="installment_ids" readonly="1">
+                <tree>
+                  <field name="number"/>
+                  <field name="due_date"/>
+                  <field name="amount"/>
+                  <field name="paid_amount"/>
+                  <field name="date_payment"/>
+                  <field name="state"/>
+                </tree>
+              </field>
+              <button name="action_approve" string="Aprovar Empréstimo"
+                      type="object" class="btn-primary"
+                      attrs="{'invisible': [('state','!=','draft')]}"/>
+            </page>
+            <page string="Renegociações">
+              <field name="renegotiation_ids">
+                <tree>
+                  <field name="date"/>
+                  <field name="old_rate"/>
+                  <field name="new_rate"/>
+                  <field name="old_weeks"/>
+                  <field name="new_weeks"/>
+                </tree>
+              </field>
+            </page>
+          </notebook>
+        </sheet>
+        <div class="oe_chatter"/>
+      </form>
+    </field>
+  </record>
+</odoo>

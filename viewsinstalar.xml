@@ -1,0 +1,42 @@
+<odoo>
+  <record id="action_gt_installment" model="ir.actions.act_window">
+    <field name="name">Parcelas</field>
+    <field name="res_model">gt.installment</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  <menuitem id="menu_gt_installment" name="Parcelas" parent="menu_gt_root" action="action_gt_installment"/>
+
+  <record id="view_gt_installment_tree" model="ir.ui.view">
+    <field name="model">gt.installment</field>
+    <field name="arch" type="xml">
+      <tree editable="bottom">
+        <field name="loan_id"/>
+        <field name="number"/>
+        <field name="due_date"/>
+        <field name="amount"/>
+        <field name="paid_amount"/>
+        <field name="date_payment"/>
+        <field name="state"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="view_gt_installment_form" model="ir.ui.view">
+    <field name="model">gt.installment</field>
+    <field name="arch" type="xml">
+      <form string="Parcela">
+        <sheet>
+          <group>
+            <field name="loan_id"/>
+            <field name="number"/>
+            <field name="due_date"/>
+            <field name="amount"/>
+            <field name="paid_amount"/>
+            <field name="date_payment"/>
+            <field name="state"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+</odoo>
