@@ -4,10 +4,15 @@
     <field name="model_id" ref="model_gt_installment"/>
     <field name="state">code</field>
     <field name="code">
-for parc in env['gt.installment'].search([('state','=','open'), ('due_date','<', fields.Date.context_today(env))]):
+from odoo import fields
+hoje = fields.Date.context_today(env)
+for parc in env['gt.installment'].search([('state','=','open'),('due_date','<',hoje)]):
     parc.state = 'overdue'
-    # opcional: marcar empréstimo como "bad" se X atrasos...
-    env.cr.execute('UPDATE gt_loan SET state=%s WHERE id=%s', ('bad', parc.loan_id.id))
+    overdue_count = env['gt.installment'].search_count([
+        ('loan_id','=',parc.loan_id.id),('state','=','overdue')
+    ])
+    if overdue_count > 3 and parc.loan_id.state == 'active':
+        parc.loan_id.state = 'bad'
     </field>
     <field name="interval_number">1</field>
     <field name="interval_type">days</field>
