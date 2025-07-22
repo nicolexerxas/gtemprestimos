@@ -1,0 +1,13 @@
+# -*- coding: utf-8 -*-
+from odoo import fields, models
+
+class GtLoanReneg(models.Model):
+    _name = 'gt.loan.reneg'
+    _description = 'Renegociação de Empréstimo'
+
+    loan_id   = fields.Many2one('gt.loan','Empréstimo', required=True, ondelete='cascade')
+    date      = fields.Date('Data', required=True)
+    old_rate  = fields.Float('Taxa Antiga (%)')
+    new_rate  = fields.Float('Nova Taxa (%)')
+    old_weeks = fields.Integer('Prazo Antigo (semanas)')
+    new_weeks = fields.Integer('Novo Prazo (semanas)')
