@@ -23,20 +23,4 @@
 
   <record id="view_gt_installment_form" model="ir.ui.view">
     <field name="model">gt.installment</field>
-    <field name="arch" type="xml">
-      <form string="Parcela">
-        <sheet>
-          <group>
-            <field name="loan_id"/>
-            <field name="number"/>
-            <field name="due_date"/>
-            <field name="amount"/>
-            <field name="paid_amount"/>
-            <field name="date_payment"/>
-            <field name="state"/>
-          </group>
-        </sheet>
-      </form>
-    </field>
-  </record>
-</odoo>
+    <field name="arch``
